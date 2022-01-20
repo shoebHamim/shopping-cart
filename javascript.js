@@ -8,6 +8,7 @@ function update(value, total_id, amount_id, update_amount) {
     item.innerText = updated_value;
     var item_amount_number = parseFloat(item_amount.value);
     item_amount.value = item_amount_number + update_amount;
+    update_total();
 }
 function update_on_input(unit_price,total_id,amount_id,update_amount){
     const total=document.getElementById(total_id);
@@ -15,10 +16,21 @@ function update_on_input(unit_price,total_id,amount_id,update_amount){
     if(update_amount<0){
         total.innerText=unit_price;
         amount.value=1;
+        update_total();
         return;
     }
     total.innerText=unit_price*update_amount;
+    update_total();
 }
+function update_total(){
+    const phone_total=parseFloat(document.getElementById('phone-price-total').innerText);
+    const case_total=parseFloat(document.getElementById('case-price-total').innerText);
+    document.getElementById('total').innerText=((phone_total+case_total)*1.05).toFixed(3);
+    document.getElementById('tax').innerText=((phone_total+case_total)*.05).toFixed(3);
+    document.getElementById('sub-total').innerText=phone_total+case_total;
+}
+
+
 
 
 const phone_plus = document.getElementById('phone-plus');
@@ -50,6 +62,8 @@ case_amount.addEventListener('change', function () {
     const input_change = case_amount.value;
     update_on_input(59,'case-price-total', 'case_amount',input_change);
 })
+
+
 
 
 
